@@ -4,6 +4,7 @@ public enum AddressType {
 
     RESIDENTIAL,
     MAILING,
-    WORK
+    WORK,
+    PROPERTY
 
 }
