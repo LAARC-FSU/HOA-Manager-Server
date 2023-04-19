@@ -1,0 +1,33 @@
+spring:
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  application:
+    name: 'hoamanager'
+  datasource:
+    url: 'jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}'
+    username: '${DB_USERNAME}'
+    password: '${DB_PASSWORD}'
+  security:
+    user:
+      name: '${DEFAULT_USER_NAME}'
+      password: '${DEFAULT_USER_PASSWORD}'
+app:
+  api:
+    security:
+      permit-all:
+        - pattern: '/health'
+        - pattern: '/swagger-ui/**'
+        - pattern: '/swagger-resources/**'
+        - pattern: '/v3/api-docs/**'
+        - pattern: '/swagger-ui.html'
+        - method: 'POST'
+          pattern: '/user'
+      enabled: false
+
+springfox:
+  documentation:
+    swagger-ui:
+      base-url: '/swagger-ui'
