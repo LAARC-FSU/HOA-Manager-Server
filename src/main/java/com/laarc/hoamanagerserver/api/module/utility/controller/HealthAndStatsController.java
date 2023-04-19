@@ -1,4 +1,4 @@
-package com.laarc.hoamanagerserver.modules.utility.controller;
+package com.laarc.hoamanagerserver.api.module.utility.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.laarc.hoamanagerserver.modules.user.service;
+package com.laarc.hoamanagerserver.api.module.user.service;
 
 import org.springframework.stereotype.Service;
 

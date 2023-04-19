@@ -1,4 +1,4 @@
-package com.laarc.hoamanagerserver.modules.user.controller;
+package com.laarc.hoamanagerserver.api.module.user.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
