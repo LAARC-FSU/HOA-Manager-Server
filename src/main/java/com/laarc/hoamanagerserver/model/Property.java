@@ -17,4 +17,8 @@ public class Property {
     @OneToOne
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
+
+    @OneToOne
+    @JoinColumn(name = "deed_document_id", nullable = false)
+    private DeedDocument deedDocument;
 }
