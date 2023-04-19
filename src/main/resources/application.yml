@@ -14,3 +14,11 @@ spring:
     user:
       name: '${DEFAULT_USER_NAME}'
       password: '${DEFAULT_USER_PASSWORD}'
+app:
+  api:
+    security:
+      permit-all:
+        - pattern: '/health'
+        - method: 'POST'
+          pattern: '/user'
+
