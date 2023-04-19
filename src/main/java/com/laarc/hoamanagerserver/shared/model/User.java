@@ -1,4 +1,4 @@
-package com.laarc.hoamanagerserver.model;
+package com.laarc.hoamanagerserver.shared.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

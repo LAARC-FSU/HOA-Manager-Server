@@ -1,4 +1,4 @@
-package com.laarc.hoamanagerserver.model;
+package com.laarc.hoamanagerserver.shared.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -8,7 +8,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;

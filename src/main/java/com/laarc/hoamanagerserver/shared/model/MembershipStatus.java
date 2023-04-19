@@ -1,4 +1,4 @@
-package com.laarc.hoamanagerserver.model;
+package com.laarc.hoamanagerserver.shared.model;
 
 public enum MembershipStatus {
     ACTIVE,
