@@ -25,7 +25,7 @@ public class Member {
     private Long memberId;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "membershipId")
+    @JoinColumn(name = "membership_id")
     private Membership membership;
 
     @OneToOne
