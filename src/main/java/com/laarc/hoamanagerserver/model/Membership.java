@@ -31,6 +31,7 @@ public class Membership {
     private Set<Member> members;
 
     @ManyToOne
+    @JoinColumn(name = "primary_member_id")
     private Member primaryMember;
 
     @OneToMany

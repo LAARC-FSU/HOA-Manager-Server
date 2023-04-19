@@ -1,14 +1,18 @@
 package com.laarc.hoamanagerserver.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -17,13 +21,20 @@ public class DeedDocument {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String deedDocumentId;
+    private int deedDocumentId;
 
-    @Lob
-    @Column(columnDefinition = "BLOB")
-    private byte[] data;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "uploader_user_id")
+    private User uploader;
 
     @NotNull
     private String fileName;
+
+    @CreationTimestamp
+    private LocalDate uploaded;
+
+    @UpdateTimestamp
+    private LocalDate lastUpdated;
 
 }
