@@ -13,6 +13,7 @@ public class ApiConfigProperties {
 
     @Data
     public static class SecurityProperties {
+        private boolean enabled = true;
         private List<HttpRequestMatcher> permitAll;
     }
 

@@ -19,6 +19,15 @@ app:
     security:
       permit-all:
         - pattern: '/health'
+        - pattern: '/swagger-ui/**'
+        - pattern: '/swagger-resources/**'
+        - pattern: '/v3/api-docs/**'
+        - pattern: '/swagger-ui.html'
         - method: 'POST'
           pattern: '/user'
+      enabled: false
 
+springfox:
+  documentation:
+    swagger-ui:
+      base-url: '/swagger-ui'

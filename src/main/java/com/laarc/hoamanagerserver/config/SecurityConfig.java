@@ -37,8 +37,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        authorizeRequests(http);
+        if (apiConfigProperties.getSecurity().isEnabled()) {
+            authorizeRequests(http);
+        } else {
+            allowAllRequests(http);
+        }
         disableDefaultLoginForm(http);
+
+        http.csrf().disable();
 
         return http.build();
 
@@ -50,16 +56,19 @@ public class SecurityConfig {
                 .getSecurity()
                 .getPermitAll()
                 .stream()
-                .map(matcher -> {
-                    return StringUtils.hasText(matcher.getMethod()) ?
-                            new AntPathRequestMatcher(matcher.getPattern(), matcher.getMethod()) :
-                            new AntPathRequestMatcher(matcher.getPattern());
-                }).toList();
+                .map(matcher -> StringUtils.hasText(matcher.getMethod()) ?
+                        new AntPathRequestMatcher(matcher.getPattern(), matcher.getMethod()) :
+                        new AntPathRequestMatcher(matcher.getPattern())).toList();
 
         http
                 .authorizeHttpRequests()
                 .requestMatchers(matchers.toArray(new RequestMatcher[0])).permitAll()
                 .anyRequest().authenticated();
+    }
+
+    private void allowAllRequests(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests()
+                .anyRequest().permitAll();
     }
 
     private void disableDefaultLoginForm(HttpSecurity http) throws Exception {

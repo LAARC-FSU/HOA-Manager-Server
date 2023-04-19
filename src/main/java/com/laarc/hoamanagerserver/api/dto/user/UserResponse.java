@@ -10,10 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateUser {
-
+public class UserResponse {
+    private long userId;
     private String email;
-    private String password;
     private UserRoleName userRoleName;
-
 }

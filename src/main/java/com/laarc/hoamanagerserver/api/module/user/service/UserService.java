@@ -2,9 +2,15 @@ package com.laarc.hoamanagerserver.api.module.user.service;
 
 import com.laarc.hoamanagerserver.api.crud.BaseCrudService;
 import com.laarc.hoamanagerserver.api.dto.user.CreateUser;
+import com.laarc.hoamanagerserver.api.dto.user.UserResponse;
 import com.laarc.hoamanagerserver.exception.UserNotFoundException;
+import com.laarc.hoamanagerserver.exception.UserRoleNotFound;
+import com.laarc.hoamanagerserver.exception.http.ConflictException;
 import com.laarc.hoamanagerserver.shared.model.User;
+import com.laarc.hoamanagerserver.shared.model.UserRole;
+import com.laarc.hoamanagerserver.shared.model.UserRoleName;
 import com.laarc.hoamanagerserver.shared.repository.UserRepository;
+import com.laarc.hoamanagerserver.shared.repository.UserRoleRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -18,18 +24,39 @@ import java.util.List;
 public class UserService implements BaseCrudService<User, Long> {
 
     private final UserRepository userRepository;
+    private final UserRoleRepository userRoleRepository;
     private final PasswordEncoder passwordEncoder;
-    private final ModelMapper mapper;
 
     public boolean existByEmail(String email) {
         return userRepository.existsByEmail(email);
     }
 
     public User createUser(@Valid CreateUser createUser) {
-        User user = mapper.map(createUser, User.class);
-        String hashedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(hashedPassword);
-        return userRepository.save(user);
+
+        if (existByEmail(createUser.getEmail())) {
+            throw new ConflictException("Email already exists.");
+        }
+
+        String hashedPassword = passwordEncoder.encode(createUser.getPassword());
+
+        return userRepository.save(User.builder()
+                        .email(createUser.getEmail())
+                        .password(hashedPassword)
+                        .userRole(getUserRoleByName(createUser.getUserRoleName()))
+                .build());
+    }
+
+    public UserRole getUserRoleByName(UserRoleName name) {
+        return userRoleRepository.findByRoleName(name)
+                .orElseThrow(UserRoleNotFound::new);
+    }
+
+    public UserResponse mapToResponse(User user) {
+        return UserResponse.builder()
+                .userId(user.getUserId())
+                .email(user.getEmail())
+                .userRoleName(user.getUserRole().getRoleName())
+                .build();
     }
 
     @Override
