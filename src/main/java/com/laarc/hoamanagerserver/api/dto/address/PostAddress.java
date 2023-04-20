@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PostAddress {
 
+    private String addressId;
     private String addressLine1;
     private String addressLine2;
     private String city;

@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PostProperty {
 
+    private Long propertyId;
     private PostAddress propertyAddress;
     private Integer deedDocumentId;
     private String deedFileName;
