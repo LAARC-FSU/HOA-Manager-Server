@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,12 +31,20 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long personId;
 
+    @NotBlank
+    @NotNull
     private String firstName;
 
+    @NotBlank
+    @NotNull
     private String middleName;
 
+    @NotBlank
+    @NotNull
     private String lastName;
 
+    @NotBlank
+    @NotNull
     private String suffix;
 
     @NotNull
