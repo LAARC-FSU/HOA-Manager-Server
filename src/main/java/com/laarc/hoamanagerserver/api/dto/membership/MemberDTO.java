@@ -1,6 +1,6 @@
 package com.laarc.hoamanagerserver.api.dto.membership;
 
-import com.laarc.hoamanagerserver.api.dto.address.PostAddress;
+import com.laarc.hoamanagerserver.api.dto.address.AddressDTO;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostMember {
+public class MemberDTO {
 
     @Nullable
     private Long memberId;
@@ -26,7 +26,7 @@ public class PostMember {
     @NotBlank
     private String suffix;
     @NotNull
-    private PostAddress mailingAddress;
+    private AddressDTO mailingAddress;
 
     private boolean primaryMember;
 

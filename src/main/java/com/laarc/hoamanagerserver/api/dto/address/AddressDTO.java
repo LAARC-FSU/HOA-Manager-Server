@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostAddress {
+public class AddressDTO {
 
-    private String addressId;
+    private Long addressId;
     private String addressLine1;
     private String addressLine2;
     private String city;

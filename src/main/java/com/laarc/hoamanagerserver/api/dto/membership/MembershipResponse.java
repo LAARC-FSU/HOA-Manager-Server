@@ -1,7 +1,5 @@
 package com.laarc.hoamanagerserver.api.dto.membership;
 
-import com.laarc.hoamanagerserver.api.dto.property.PostProperty;
-import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,11 +11,9 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostMembership {
+public class MembershipResponse {
 
-    @Nullable
     private String membershipId;
     private List<MemberDTO> members;
-    private List<PostProperty> properties;
 
 }
