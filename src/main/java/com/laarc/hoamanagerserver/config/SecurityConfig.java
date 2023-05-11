@@ -1,13 +1,10 @@
 package com.laarc.hoamanagerserver.config;
 
-import com.laarc.hoamanagerserver.api.config.ApiConfigProperties;
-import com.laarc.hoamanagerserver.api.config.HttpRequestMatcher;
-import com.laarc.hoamanagerserver.exception.config.ConfigException;
+import com.laarc.hoamanagerserver.api.module.membership.repository.config.ApiConfigProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,7 +16,6 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Configuration
 @EnableWebSecurity

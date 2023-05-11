@@ -1,4 +1,4 @@
-package com.laarc.hoamanagerserver.api.config;
+package com.laarc.hoamanagerserver.api.module.membership.repository.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
