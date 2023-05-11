@@ -138,7 +138,7 @@ public class MembershipService {
         AddressDTO addressDTO = modelMapper.map(mailingAddress, AddressDTO.class);
         boolean primaryMember = Objects.equals(member.getMembership().getPrimaryMember().getMemberId(), member.getMemberId());
 
-        String membershipId = "%s-%02d".formatted(member.getMembership().getMembershipId(), member.getMembership().getMembers().indexOf(member) + 1);
+        String membershipId = "%s-%02d".formatted(member.getMembership().getMembershipId(), member.getMembership().getMembers().indexOf(member));
 
         return MemberDTO.builder()
                 .memberId(member.getMemberId())
