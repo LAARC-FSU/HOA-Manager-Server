@@ -26,7 +26,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -81,9 +81,10 @@ public class MembershipService {
                     saveMemberPerson(memberDTO, member);
                     member.setMembership(finalMembership);
                     return memberRepository.save(member);
-                })
-                .collect(Collectors.toList());
-        members.add(primaryMember);
+                }).toList();
+
+        List<Member> membersList = new ArrayList<>(List.of(primaryMember));
+        membersList.addAll(members);
 
         // Save all properties
         Set<Property> properties = postMembership.getProperties().stream()
@@ -95,7 +96,7 @@ public class MembershipService {
         // Set properties
         membership.setProperties(properties);
         // Set members
-        membership.setMembers(members);
+        membership.setMembers(membersList);
 
         return membershipRepository.save(membership);
     }
@@ -136,8 +137,12 @@ public class MembershipService {
                 .orElseThrow(() -> new NotFoundException("Mailing address was not found for person %s.".formatted(person.getPersonId())));
         AddressDTO addressDTO = modelMapper.map(mailingAddress, AddressDTO.class);
         boolean primaryMember = Objects.equals(member.getMembership().getPrimaryMember().getMemberId(), member.getMemberId());
+
+        String membershipId = "%s-%02d".formatted(member.getMembership().getMembershipId(), member.getMembership().getMembers().indexOf(member) + 1);
+
         return MemberDTO.builder()
                 .memberId(member.getMemberId())
+                .membershipId(membershipId)
                 .firstName(person.getFirstName())
                 .middleName(person.getMiddleName())
                 .lastName(person.getLastName())

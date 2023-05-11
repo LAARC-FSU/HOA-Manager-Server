@@ -17,13 +17,14 @@ public class MemberDTO {
 
     @Nullable
     private Long memberId;
+
+    @Nullable
+    private String membershipId;
     @NotBlank
     private String firstName;
-    @NotBlank
     private String middleName;
     @NotBlank
     private String lastName;
-    @NotBlank
     private String suffix;
     @NotNull
     private AddressDTO mailingAddress;
