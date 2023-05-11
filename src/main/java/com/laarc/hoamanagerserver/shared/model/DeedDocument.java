@@ -6,13 +6,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -23,7 +25,6 @@ public class DeedDocument {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int deedDocumentId;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "uploader_user_id")
     private User uploader;
@@ -32,9 +33,20 @@ public class DeedDocument {
     private String fileName;
 
     @CreationTimestamp
-    private LocalDate uploaded;
+    private LocalDateTime uploaded;
 
     @UpdateTimestamp
-    private LocalDate lastUpdated;
+    private LocalDateTime lastUpdated;
+
+    @PrePersist
+    public void setUniqueFileName() {
+
+        String uuid = UUID.randomUUID().toString();
+
+        String fileNameWithoutExt = fileName.substring(0, fileName.indexOf("."));
+        String extension = fileName.substring(fileName.indexOf("."));
+        this.fileName = fileNameWithoutExt + "_" + uuid + extension;
+
+    }
 
 }

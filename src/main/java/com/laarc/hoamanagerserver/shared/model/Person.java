@@ -17,7 +17,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -35,16 +35,11 @@ public class Person {
     @NotNull
     private String firstName;
 
-    @NotBlank
-    @NotNull
     private String middleName;
 
     @NotBlank
-    @NotNull
     private String lastName;
 
-    @NotBlank
-    @NotNull
     private String suffix;
 
     @NotNull
@@ -57,9 +52,9 @@ public class Person {
     private Set<Address> addresses;
 
     @CreationTimestamp
-    private LocalDate created;
+    private LocalDateTime created;
 
     @UpdateTimestamp
-    private LocalDate lastUpdated;
+    private LocalDateTime lastUpdated;
 
 }
