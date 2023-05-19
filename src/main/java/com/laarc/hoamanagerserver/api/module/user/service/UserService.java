@@ -1,7 +1,8 @@
 package com.laarc.hoamanagerserver.api.module.user.service;
 
 import com.laarc.hoamanagerserver.api.crud.BaseCrudService;
-import com.laarc.hoamanagerserver.api.dto.user.CreateUser;
+import com.laarc.hoamanagerserver.api.dto.user.PostUser;
+import com.laarc.hoamanagerserver.api.dto.user.RegisterMemberUser;
 import com.laarc.hoamanagerserver.api.dto.user.UserResponse;
 import com.laarc.hoamanagerserver.exception.UserNotFoundException;
 import com.laarc.hoamanagerserver.exception.UserRoleNotFound;
@@ -9,11 +10,10 @@ import com.laarc.hoamanagerserver.exception.http.ConflictException;
 import com.laarc.hoamanagerserver.shared.model.User;
 import com.laarc.hoamanagerserver.shared.model.UserRole;
 import com.laarc.hoamanagerserver.shared.model.UserRoleName;
-import com.laarc.hoamanagerserver.shared.repository.UserRepository;
-import com.laarc.hoamanagerserver.shared.repository.UserRoleRepository;
+import com.laarc.hoamanagerserver.api.module.user.repository.UserRepository;
+import com.laarc.hoamanagerserver.api.module.user.repository.UserRoleRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,19 +31,29 @@ public class UserService implements BaseCrudService<User, Long> {
         return userRepository.existsByEmail(email);
     }
 
-    public User createUser(@Valid CreateUser createUser) {
+    public User createUser(@Valid PostUser postUser) {
 
-        if (existByEmail(createUser.getEmail())) {
+        if (existByEmail(postUser.getEmail())) {
             throw new ConflictException("Email already exists.");
         }
 
-        String hashedPassword = passwordEncoder.encode(createUser.getPassword());
+        String hashedPassword = passwordEncoder.encode(postUser.getPassword());
 
         return userRepository.save(User.builder()
-                        .email(createUser.getEmail())
+                        .email(postUser.getEmail())
                         .password(hashedPassword)
-                        .userRole(getUserRoleByName(createUser.getUserRoleName()))
+                        .userRole(getUserRoleByName(postUser.getUserRoleName()))
                 .build());
+    }
+
+    public User registerMemberUser(@Valid RegisterMemberUser registerMemberUser) {
+
+        PostUser user = PostUser.builder()
+                .email(registerMemberUser.getEmail())
+                .password(registerMemberUser.getPassword())
+                .userRoleName(UserRoleName.MEMBER)
+                .build();
+        return createUser(user);
     }
 
     public UserRole getUserRoleByName(UserRoleName name) {

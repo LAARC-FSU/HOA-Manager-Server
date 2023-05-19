@@ -8,6 +8,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderColumn;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +28,8 @@ public class Membership {
     private MembershipStatus status;
 
     @OneToMany(mappedBy = "membership")
-    private Set<Member> members;
+    @OrderColumn(name = "membership_index")
+    private List<Member> members;
 
     @ManyToOne
     @JoinColumn(name = "primary_member_id")
@@ -48,4 +50,5 @@ public class Membership {
             inverseJoinColumns = @JoinColumn(name = "payment_id")
     )
     private List<Payment> payments;
+
 }

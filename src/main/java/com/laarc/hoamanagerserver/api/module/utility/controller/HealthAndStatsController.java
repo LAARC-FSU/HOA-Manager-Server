@@ -10,6 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping
 public class HealthAndStatsController {
 
+    @GetMapping()
+    @ResponseStatus(code = HttpStatus.OK)
+    public String rootApp() {
+        return "HOA Manager Server";
+    }
+
     @GetMapping("/health")
     @ResponseStatus(code = HttpStatus.OK)
     public String healthCheck() {

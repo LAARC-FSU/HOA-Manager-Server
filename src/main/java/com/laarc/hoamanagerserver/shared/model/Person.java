@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +17,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -30,10 +31,13 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long personId;
 
+    @NotBlank
+    @NotNull
     private String firstName;
 
     private String middleName;
 
+    @NotBlank
     private String lastName;
 
     private String suffix;
@@ -48,9 +52,9 @@ public class Person {
     private Set<Address> addresses;
 
     @CreationTimestamp
-    private LocalDate created;
+    private LocalDateTime created;
 
     @UpdateTimestamp
-    private LocalDate lastUpdated;
+    private LocalDateTime lastUpdated;
 
 }

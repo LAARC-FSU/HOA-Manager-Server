@@ -1,6 +1,6 @@
 package com.laarc.hoamanagerserver.api.module.user.controller;
 
-import com.laarc.hoamanagerserver.api.dto.user.CreateUser;
+import com.laarc.hoamanagerserver.api.dto.user.PostUser;
 import com.laarc.hoamanagerserver.api.dto.user.UserResponse;
 import com.laarc.hoamanagerserver.api.module.user.service.UserService;
 import com.laarc.hoamanagerserver.shared.model.User;
@@ -22,8 +22,8 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public UserResponse createUser(@RequestBody @Valid CreateUser createUser) {
-        User createdUser = userService.createUser(createUser);
+    public UserResponse createUser(@RequestBody @Valid PostUser postUser) {
+        User createdUser = userService.createUser(postUser);
         return userService.mapToResponse(createdUser);
     }
 

@@ -1,4 +1,4 @@
-package com.laarc.hoamanagerserver.shared.repository;
+package com.laarc.hoamanagerserver.api.module.user.repository;
 
 import com.laarc.hoamanagerserver.shared.model.UserRole;
 import com.laarc.hoamanagerserver.shared.model.UserRoleName;

@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
@@ -33,7 +34,11 @@ public class Member {
     private Person person;
 
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinTable(
+            name = "member_user",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private User user;
 
 }

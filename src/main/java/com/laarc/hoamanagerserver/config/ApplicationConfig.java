@@ -1,6 +1,6 @@
 package com.laarc.hoamanagerserver.config;
 
-import com.laarc.hoamanagerserver.api.config.ApiConfigProperties;
+import com.laarc.hoamanagerserver.api.module.membership.repository.config.ApiConfigProperties;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
