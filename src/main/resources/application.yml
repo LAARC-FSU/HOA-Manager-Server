@@ -26,3 +26,6 @@ app:
         - method: 'POST'
           pattern: '/user'
       enabled: false
+    jwt:
+      secret-key: '${JWT_SECRET_KEY}'
+

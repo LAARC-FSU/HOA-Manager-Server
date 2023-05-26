@@ -3,11 +3,14 @@ package com.laarc.hoamanagerserver.api.module.membership.repository.config;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.time.Duration;
 import java.util.List;
 
 @Data
 @ConfigurationProperties(prefix = "app.api")
 public class ApiConfigProperties {
+
+    public JwtProperties jwt;
 
     public SecurityProperties security = new SecurityProperties();
 
@@ -17,6 +20,11 @@ public class ApiConfigProperties {
         private List<HttpRequestMatcher> permitAll;
     }
 
+    @Data
+    public static class JwtProperties {
+        private String secretKey;
+        private Long expirationTime = Duration.ofHours(24).toSeconds();
+    }
 
 
 }
