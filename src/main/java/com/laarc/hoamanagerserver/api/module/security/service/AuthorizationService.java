@@ -18,8 +18,20 @@ public class AuthorizationService {
     private final UserDetailsServiceImpl userDetailsService;
 
     public JwtResponse getJwtByLoginRequest(LoginRequest loginRequest) {
+
+        authenticateLogin(loginRequest);
+
         UserDetails user = userDetailsService.loadUserByUsername(loginRequest.getUsername());
         String username = user.getUsername();
+
+        String token = jwtUtil.generateToken(username);
+        return JwtResponse.builder()
+                .token(token)
+                .build();
+    }
+
+    public void authenticateLogin(LoginRequest loginRequest) {
+        UserDetails user = userDetailsService.loadUserByUsername(loginRequest.getUsername());
         String password = user.getPassword();
 
         // Check password
@@ -27,11 +39,6 @@ public class AuthorizationService {
 
         if (!correctPassword)
             throw new UnauthorizedException("Password is incorrect.");
-
-        String token = jwtUtil.generateToken(username);
-        return JwtResponse.builder()
-                .token(token)
-                .build();
     }
 
 }
