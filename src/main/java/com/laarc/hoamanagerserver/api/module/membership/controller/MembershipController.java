@@ -21,7 +21,7 @@ public class MembershipController {
 
     private final MembershipService membershipService;
 
-    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'EMPLOYEE')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public MembershipResponse createMembership(@RequestBody @Valid PostMembership postMembership) {
