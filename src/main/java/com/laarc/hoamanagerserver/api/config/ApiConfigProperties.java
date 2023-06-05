@@ -1,4 +1,4 @@
-package com.laarc.hoamanagerserver.api.module.membership.repository.config;
+package com.laarc.hoamanagerserver.api.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -24,6 +24,7 @@ public class ApiConfigProperties {
     public static class JwtProperties {
         private String secretKey;
         private Long expirationTime = Duration.ofHours(24).toSeconds();
+        private String tokenPrefix = "Bearer ";
     }
 
 

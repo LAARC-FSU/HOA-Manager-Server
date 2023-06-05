@@ -1,4 +1,4 @@
-package com.laarc.hoamanagerserver.api.module.membership.repository.config;
+package com.laarc.hoamanagerserver.api.config;
 
 import lombok.Data;
 

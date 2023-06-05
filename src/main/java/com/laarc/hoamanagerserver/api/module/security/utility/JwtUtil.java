@@ -1,55 +1,70 @@
 package com.laarc.hoamanagerserver.api.module.security.utility;
 
-import com.laarc.hoamanagerserver.api.module.membership.repository.config.ApiConfigProperties;
+import com.laarc.hoamanagerserver.shared.model.User;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-import java.security.Key;
 import java.util.Date;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
 public class JwtUtil {
-
-    private final ApiConfigProperties apiConfigProperties;
     private final SecretKey secretKey;
 
-    public String generateToken(String username) {
+    public String generateToken(UserDetails userDetails) {
         Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + apiConfigProperties.getJwt().getExpirationTime());
+        String subject = userDetails.getUsername();
+        String role = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList().get(0);
 
         return Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(now)
-                .setExpiration(expiryDate)
+                .setClaims(Map.of(
+                        "subject", subject,
+                        "role", role,
+                        "iat", now
+                ))
                 .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public String extractUsername(String token) {
+    private JwtParser getJwtParser() {
         return Jwts.parserBuilder()
                 .setSigningKey(secretKey)
-                .build()
-                .parseClaimsJwt(token)
+                .build();
+    }
+
+    private Jws<Claims> getClaims(String token) {
+        token = token.replace("Bearer ", "");
+        return getJwtParser().parseClaimsJws(token);
+    }
+
+    public String extractUsername(String token) {
+        return  getClaims(token)
                 .getBody()
-                .getSubject();
+                .get("subject").toString();
+    }
+
+    public GrantedAuthority extractUserAuthority(String token) {
+        String roleName = getClaims(token)
+                .getBody()
+                .get("role").toString();
+        return new SimpleGrantedAuthority(roleName);
     }
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parserBuilder()
-                    .setSigningKey(secretKey)
-                    .build()
-                    .parseClaimsJwt(token);
+            getClaims(token);
             return true;
         } catch (Exception e) {
-            // Token is invalid or has expired
             return false;
         }
     }

@@ -5,7 +5,6 @@ import com.laarc.hoamanagerserver.api.dto.LoginRequest;
 import com.laarc.hoamanagerserver.api.module.security.service.AuthorizationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
