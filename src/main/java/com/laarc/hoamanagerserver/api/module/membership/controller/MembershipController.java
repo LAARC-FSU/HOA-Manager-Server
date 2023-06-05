@@ -3,10 +3,12 @@ package com.laarc.hoamanagerserver.api.module.membership.controller;
 import com.laarc.hoamanagerserver.api.dto.membership.MembershipResponse;
 import com.laarc.hoamanagerserver.api.dto.membership.PostMembership;
 import com.laarc.hoamanagerserver.api.module.membership.service.MembershipService;
+import com.laarc.hoamanagerserver.api.module.security.utility.AccessControl;
 import com.laarc.hoamanagerserver.shared.model.Membership;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,7 @@ public class MembershipController {
 
     private final MembershipService membershipService;
 
+    @PreAuthorize(AccessControl.ADMINISTRATION)
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public MembershipResponse createMembership(@RequestBody @Valid PostMembership postMembership) {

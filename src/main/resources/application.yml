@@ -25,4 +25,8 @@ app:
         - pattern: '/swagger-ui.html'
         - method: 'POST'
           pattern: '/user'
+        - pattern: '/login'
       enabled: false
+    jwt:
+      secret-key: '${JWT_SECRET_KEY}'
+

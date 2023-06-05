@@ -1,16 +1,18 @@
 package com.laarc.hoamanagerserver.config;
 
-import com.laarc.hoamanagerserver.api.module.membership.repository.config.ApiConfigProperties;
+import com.laarc.hoamanagerserver.api.config.ApiConfigProperties;
+import com.laarc.hoamanagerserver.api.module.security.utility.JwtUtil;
+import com.laarc.hoamanagerserver.filter.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.StringUtils;
@@ -21,17 +23,16 @@ import java.util.List;
 @EnableWebSecurity
 @RequiredArgsConstructor
 @Slf4j(topic = "Security Configuration")
+@EnableMethodSecurity
 public class SecurityConfig {
 
     private final ApiConfigProperties apiConfigProperties;
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(12);
-    }
+    private final JwtUtil jwtUtil;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         if (apiConfigProperties.getSecurity().isEnabled()) {
             authorizeRequests(http);
@@ -39,11 +40,15 @@ public class SecurityConfig {
             allowAllRequests(http);
         }
         disableDefaultLoginForm(http);
-
-        http.csrf().disable();
+        disableCsrf(http);
 
         return http.build();
 
+    }
+
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter() {
+        return new JwtAuthenticationFilter(jwtUtil);
     }
 
     private void authorizeRequests(HttpSecurity http) throws Exception {
@@ -71,6 +76,10 @@ public class SecurityConfig {
         http
                 .httpBasic()
                 .authenticationEntryPoint(new Http403ForbiddenEntryPoint());
+    }
+
+    private void disableCsrf(HttpSecurity http) throws Exception {
+        http.csrf().disable();
     }
 
 }
