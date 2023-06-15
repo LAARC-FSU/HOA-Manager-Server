@@ -1,6 +1,5 @@
 package com.laarc.hoamanagerserver.exception.handler;
 
-import com.laarc.hoamanagerserver.exception.http.ForbiddenException;
 import com.laarc.hoamanagerserver.exception.http.HttpErrorException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

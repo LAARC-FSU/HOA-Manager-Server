@@ -1,7 +1,6 @@
 package com.laarc.hoamanagerserver.filter;
 
 import com.laarc.hoamanagerserver.api.module.security.utility.JwtUtil;
-import com.laarc.hoamanagerserver.exception.http.ForbiddenException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

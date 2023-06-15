@@ -6,7 +6,6 @@ import com.laarc.hoamanagerserver.api.module.security.utility.JwtUtil;
 import com.laarc.hoamanagerserver.api.module.user.service.UserService;
 import com.laarc.hoamanagerserver.exception.http.UnauthorizedException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
