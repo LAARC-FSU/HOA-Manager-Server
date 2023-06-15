@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.laarc</groupId>
 	<artifactId>hoa-manager-server</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.3</version>
 	<name>hoa-manager-server</name>
 	<description>hoa-manager-server</description>
 	<properties>
