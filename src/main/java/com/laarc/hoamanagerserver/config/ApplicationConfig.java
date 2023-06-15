@@ -1,7 +1,6 @@
 package com.laarc.hoamanagerserver.config;
 
 import com.laarc.hoamanagerserver.api.config.ApiConfigProperties;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

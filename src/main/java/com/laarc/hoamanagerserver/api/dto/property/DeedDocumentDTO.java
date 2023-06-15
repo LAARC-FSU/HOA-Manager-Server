@@ -1,7 +1,6 @@
 package com.laarc.hoamanagerserver.api.dto.property;
 
 import com.laarc.hoamanagerserver.api.dto.user.UserDTO;
-import com.laarc.hoamanagerserver.shared.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

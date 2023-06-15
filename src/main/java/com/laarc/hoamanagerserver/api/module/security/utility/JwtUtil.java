@@ -1,6 +1,5 @@
 package com.laarc.hoamanagerserver.api.module.security.utility;
 
-import com.laarc.hoamanagerserver.shared.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtParser;
