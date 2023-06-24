@@ -86,6 +86,9 @@ public class SecurityConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        apiConfigProperties.getAllowedOrigins().forEach(registry::addMapping);
+        registry.addMapping("/**")
+                .allowedHeaders("*")
+                .allowedMethods("*")
+                .allowedOrigins(apiConfigProperties.allowedOrigins.toArray(new String[0]));
     }
 }
