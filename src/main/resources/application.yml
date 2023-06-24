@@ -29,4 +29,6 @@ app:
       enabled: false
     jwt:
       secret-key: '${JWT_SECRET_KEY}'
+    allowed-origins:
+      - '${CLIENT_ORIGIN}'
 

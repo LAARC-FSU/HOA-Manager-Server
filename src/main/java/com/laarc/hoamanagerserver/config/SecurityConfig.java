@@ -16,6 +16,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.StringUtils;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
@@ -24,7 +26,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j(topic = "Security Configuration")
 @EnableMethodSecurity
-public class SecurityConfig {
+public class SecurityConfig implements WebMvcConfigurer {
 
     private final ApiConfigProperties apiConfigProperties;
     private final JwtUtil jwtUtil;
@@ -82,4 +84,8 @@ public class SecurityConfig {
         http.csrf().disable();
     }
 
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        apiConfigProperties.getAllowedOrigins().forEach(registry::addMapping);
+    }
 }
