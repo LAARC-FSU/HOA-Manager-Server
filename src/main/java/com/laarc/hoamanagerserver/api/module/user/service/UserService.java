@@ -46,16 +46,6 @@ public class UserService implements BaseCrudService<User, Long> {
                 .build());
     }
 
-    public User registerMemberUser(@Valid RegisterMemberUser registerMemberUser) {
-
-        PostUser user = PostUser.builder()
-                .email(registerMemberUser.getEmail())
-                .password(registerMemberUser.getPassword())
-                .userRoleName(UserRoleName.MEMBER)
-                .build();
-        return createUser(user);
-    }
-
     public UserRole getUserRoleByName(UserRoleName name) {
         return userRoleRepository.findByRoleName(name)
                 .orElseThrow(UserRoleNotFound::new);

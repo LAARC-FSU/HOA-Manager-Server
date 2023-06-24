@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -13,6 +14,8 @@ public class ApiConfigProperties {
     public JwtProperties jwt;
 
     public SecurityProperties security = new SecurityProperties();
+
+    public List<String> allowedOrigins = new ArrayList<>();
 
     @Data
     public static class SecurityProperties {
