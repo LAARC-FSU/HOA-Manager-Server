@@ -9,14 +9,14 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-public class EmployeeHours {
+public class EmployeeActivity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long DaysId;
+    private Long activityId;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User app_user;
+    private User employeeActivity;
     @NotNull
     private LocalDateTime timeIn;
 

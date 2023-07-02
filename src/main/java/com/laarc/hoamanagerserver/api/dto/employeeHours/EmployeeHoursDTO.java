@@ -15,9 +15,9 @@ import lombok.NoArgsConstructor;
 public class EmployeeHoursDTO {
 
     @Nullable
-    private Long DaysID;
+    private Long employeeHoursId;
     @Nullable
-    private String UserId;
+    private String userId;
     @NotBlank
     private String timeIn;
     private String timeOut;

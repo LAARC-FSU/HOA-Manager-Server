@@ -1,6 +1,6 @@
-package com.laarc.hoamanagerserver.api.module.employeeHours.controller;
+package com.laarc.hoamanagerserver.api.module.employee.controller;
 
-import com.laarc.hoamanagerserver.api.module.employeeHours.repository.EmployeeHoursRepository;
+import com.laarc.hoamanagerserver.api.module.employee.repository.EmployeeHoursRepository;
 import com.laarc.hoamanagerserver.shared.model.EmployeeHours;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +31,7 @@ public class EmployeeHoursController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public EmployeeHours create(@RequestBody EmployeeHours employeeHours){
-        return employeeHoursRepository.create(employeeHours);
+        return employeeHoursRepository.save(employeeHours);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
