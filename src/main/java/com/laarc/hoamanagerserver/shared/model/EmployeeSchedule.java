@@ -1,16 +1,22 @@
 package com.laarc.hoamanagerserver.shared.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Entity
+@Getter
+@Setter
 public class EmployeeSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long employeeScheduleId;
-
-    private Long employeeId;
-    private Long scheduleId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User employeeId;
+    @ManyToOne
+    @JoinColumn(name = "weekly_schedule_id")
+    private WeeklySchedule scheduleId;
 
     private String sun;
     private String mon;

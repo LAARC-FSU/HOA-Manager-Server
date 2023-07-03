@@ -1,9 +1,12 @@
 package com.laarc.hoamanagerserver.shared.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Entity
+@Getter
+@Setter
 public class WeeklySchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,7 +14,13 @@ public class WeeklySchedule {
 
     private String timeFrame;
 
-    private Long timeFrameId;
+    @OneToOne
+    @JoinColumn(name = "time_frame_id")
+    private TimeFrame timeFrameId;
 
-    private Long shiftId;
+    @OneToOne
+    @JoinColumn(name = "shift_id")
+    private Shift shiftId;
+
+    private boolean posted;
 }
