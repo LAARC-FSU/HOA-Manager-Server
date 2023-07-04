@@ -13,13 +13,13 @@ public class Shift {
     private Long shiftId;
 
     @OneToOne
-    @JoinColumn(name = "shift_time_id")
+    @JoinColumn(name = "first_shift_time_id")
     private ShiftTime firstShift;
     @OneToOne
-    @JoinColumn(name = "shift_time_id")
+    @JoinColumn(name = "second_shift_time_id")
     private ShiftTime secondShift;
     @OneToOne
-    @JoinColumn(name = "shift_time_id")
+    @JoinColumn(name = "third_shift_time_id")
     private ShiftTime thirdShift;
 
     private boolean enabled;

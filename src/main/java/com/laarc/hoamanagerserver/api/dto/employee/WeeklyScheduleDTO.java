@@ -2,7 +2,7 @@ package com.laarc.hoamanagerserver.api.dto.employee;
 
 import java.util.List;
 
-public class ScheduleDTO {
+public class WeeklyScheduleDTO {
     private long weeklyScheduleId;
     private String timeFrameStr;
     private TimeFrameDTO timeFrame;

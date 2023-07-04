@@ -13,7 +13,7 @@ import lombok.Setter;
 public class ShiftTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long shiftTimeId;
+    private Long timeId;
     private String start;
     private String end;
 }
