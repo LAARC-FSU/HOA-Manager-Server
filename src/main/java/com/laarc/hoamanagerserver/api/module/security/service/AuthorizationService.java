@@ -17,7 +17,6 @@ public class AuthorizationService {
     private final PasswordEncoder encoder;
     private final JwtUtil jwtUtil;
     private final UserDetailsServiceImpl userDetailsService;
-    private final UserService userService;
 
     public JwtResponse getJwtByLoginRequest(LoginRequest loginRequest) {
 

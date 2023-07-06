@@ -2,6 +2,7 @@ package com.laarc.hoamanagerserver.config;
 
 import com.laarc.hoamanagerserver.api.config.ApiConfigProperties;
 import com.laarc.hoamanagerserver.api.module.security.utility.JwtUtil;
+import com.laarc.hoamanagerserver.api.module.user.service.UserService;
 import com.laarc.hoamanagerserver.filter.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,7 @@ public class SecurityConfig implements WebMvcConfigurer {
 
     private final ApiConfigProperties apiConfigProperties;
     private final JwtUtil jwtUtil;
+    private final UserService userService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -50,7 +52,7 @@ public class SecurityConfig implements WebMvcConfigurer {
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
-        return new JwtAuthenticationFilter(jwtUtil);
+        return new JwtAuthenticationFilter(jwtUtil, userService);
     }
 
     private void authorizeRequests(HttpSecurity http) throws Exception {

@@ -2,7 +2,6 @@ package com.laarc.hoamanagerserver.api.module.user.service;
 
 import com.laarc.hoamanagerserver.api.crud.BaseCrudService;
 import com.laarc.hoamanagerserver.api.dto.user.PostUser;
-import com.laarc.hoamanagerserver.api.dto.user.RegisterMemberUser;
 import com.laarc.hoamanagerserver.api.dto.user.UserResponse;
 import com.laarc.hoamanagerserver.api.module.user.repository.UserRepository;
 import com.laarc.hoamanagerserver.api.module.user.repository.UserRoleRepository;
@@ -26,6 +25,11 @@ public class UserService implements BaseCrudService<User, Long> {
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
     private final PasswordEncoder passwordEncoder;
+
+    public User findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email)
+                .orElseThrow(UserNotFoundException::new);
+    }
 
     public boolean existByEmail(String email) {
         return userRepository.existsByEmail(email);
