@@ -1,5 +1,6 @@
 package com.laarc.hoamanagerserver.shared.model;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,15 +13,16 @@ public class Shift {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long shiftId;
 
-    @OneToOne
-    @JoinColumn(name = "first_shift_time_id")
-    private ShiftTime firstShift;
-    @OneToOne
-    @JoinColumn(name = "second_shift_time_id")
-    private ShiftTime secondShift;
-    @OneToOne
-    @JoinColumn(name = "third_shift_time_id")
-    private ShiftTime thirdShift;
+    @Nullable
+    @Column(name = "first_Shift")
+    private Long firstShift;
 
-    private boolean enabled;
+    @Nullable
+    @Column(name = "second_Shift")
+    private Long secondShift;
+
+    @Nullable
+    @Column(name = "third_Shift")
+    private Long thirdShift;
+
 }

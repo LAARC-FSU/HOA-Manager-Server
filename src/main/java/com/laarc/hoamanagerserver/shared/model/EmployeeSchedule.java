@@ -11,18 +11,14 @@ public class EmployeeSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long employeeScheduleId;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User employeeId;
-    @ManyToOne
-    @JoinColumn(name = "weekly_schedule_id")
-    private WeeklySchedule scheduleId;
-
+    private Long scheduleId;
+    private String name;
     private String sun;
     private String mon;
     private String tue;
     private String wed;
-    private String thr;
+    private String thu;
+    private String fri;
     private String sat;
     private boolean vac;
 }

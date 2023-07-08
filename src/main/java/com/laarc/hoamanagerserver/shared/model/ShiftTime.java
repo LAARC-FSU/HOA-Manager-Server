@@ -16,4 +16,5 @@ public class ShiftTime {
     private Long timeId;
     private String start;
     private String end;
+    private boolean enabled;
 }

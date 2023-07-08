@@ -12,11 +12,8 @@ public class WeeklySchedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long weeklyScheduleId;
 
+    @Column(name = "time_frame_str")
     private String timeFrame;
-
-    @OneToOne
-    @JoinColumn(name = "time_frame_id")
-    private TimeFrame timeFrameId;
 
     @OneToOne
     @JoinColumn(name = "shift_id")

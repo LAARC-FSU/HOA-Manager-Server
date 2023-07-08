@@ -1,14 +1,24 @@
 package com.laarc.hoamanagerserver.api.dto.employee;
 
-public class EmployeeScheduleDTO {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    private String name;
-    private String sun;
-    private String mon;
-    private String tue;
-    private String wed;
-    private String thr;
-    private String fri;
-    private String sat;
-    private Boolean vac;
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class EmployeeScheduleDTO {
+    private Long scheduleId;
+    private Long empId;
+    private String empName;
+    private String empSun;
+    private String empMon;
+    private String empTue;
+    private String empWed;
+    private String empThu;
+    private String empFri;
+    private String empSat;
+    private Boolean empVac;
 }
