@@ -1,9 +1,6 @@
 package com.laarc.hoamanagerserver.api.module.employee.controller;
 
-import com.laarc.hoamanagerserver.api.dto.employee.EmployeeScheduleDTO;
-import com.laarc.hoamanagerserver.api.dto.employee.ShiftDTO;
-import com.laarc.hoamanagerserver.api.dto.employee.ShiftTimeDTO;
-import com.laarc.hoamanagerserver.api.dto.employee.WeeklyScheduleDTO;
+import com.laarc.hoamanagerserver.api.dto.employee.*;
 import com.laarc.hoamanagerserver.api.module.employee.service.*;
 import com.laarc.hoamanagerserver.api.module.security.utility.AccessControl;
 import com.laarc.hoamanagerserver.shared.model.*;
@@ -12,10 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/make-schedule")
+@RequestMapping("/schedule")
 @RequiredArgsConstructor
 public class WeeklyScheduleController {
     private final WeeklyScheduleService weeklyScheduleService;
@@ -25,7 +23,7 @@ public class WeeklyScheduleController {
     private final EmployeeScheduleService employeeScheduleService;
 
     @PreAuthorize(AccessControl.ADMINISTRATION)
-    @PostMapping
+    @PostMapping("/make-schedule")
     public WeeklySchedule saveWeeklySchedule(@RequestBody WeeklyScheduleDTO weeklyScheduleDTO) {
         List<String> timeFrame = weeklyScheduleDTO.getTimeFrame();
         List<EmployeeScheduleDTO> employeeScheduleDTO = weeklyScheduleDTO.getSchedules();
@@ -45,18 +43,38 @@ public class WeeklyScheduleController {
 
         WeeklySchedule weeklySchedule = weeklyScheduleService.saveWeeklySchedule(weeklyScheduleDTO);
         weeklySchedule.setShiftId(shift);
-        for (String time : timeFrame){
+        for (String time : timeFrame) {
             TimeFrame timeFrame1 = new TimeFrame();
             timeFrame1.setId(weeklySchedule.getWeeklyScheduleId());
             timeFrame1.setTime(time);
             timeFrameService.saveTime(timeFrame1);
         }
-        for(EmployeeScheduleDTO employeeScheduleDTO1 : employeeScheduleDTO) {
+        for (EmployeeScheduleDTO employeeScheduleDTO1 : employeeScheduleDTO) {
             EmployeeSchedule employeeSchedule = employeeScheduleService.saveEmployeeSchedule(employeeScheduleDTO1);
             employeeSchedule.setScheduleId(weeklySchedule.getWeeklyScheduleId());
         }
 
         return weeklySchedule;
     }
+
+    @PreAuthorize(AccessControl.ADMINISTRATION)
+    @GetMapping("/get-schedule")
+    public DashboardReqestAllDTO GetWeeklyScheduleTimeFrames() {
+        List<WeeklySchedule> weeklySchedules = weeklyScheduleService.getWeeklySchedule();
+        List<DashboardRequestDTO> dashboardRequestDTOList = new ArrayList<>();
+        for (WeeklySchedule weeklySchedule : weeklySchedules) {
+            DashboardRequestDTO dashboardRequestDTO = new DashboardRequestDTO();
+            dashboardRequestDTO.setPosted(weeklySchedule.isPosted());
+            dashboardRequestDTO.setTimeFrameStr(weeklySchedule.getTimeFrame());
+            dashboardRequestDTOList.add(dashboardRequestDTO);
+        }
+        DashboardReqestAllDTO dashboardReqestAllDTO = new DashboardReqestAllDTO();
+        dashboardReqestAllDTO.setScheduleTimeFrames(dashboardRequestDTOList);
+        return dashboardReqestAllDTO;
+    }
 }
+
+
+
+
 

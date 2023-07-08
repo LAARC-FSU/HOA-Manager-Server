@@ -6,6 +6,8 @@ import com.laarc.hoamanagerserver.shared.model.WeeklySchedule;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class WeeklyScheduleService {
 
@@ -20,5 +22,9 @@ public class WeeklyScheduleService {
     public WeeklySchedule saveWeeklySchedule(WeeklyScheduleDTO weeklyScheduleDTO) {
         WeeklySchedule weeklySchedule = modelMapper.map(weeklyScheduleDTO,WeeklySchedule.class);
         return weeklyScheduleRepository.save(weeklySchedule);
+    }
+
+    public List<WeeklySchedule> getWeeklySchedule(){
+        return weeklyScheduleRepository.findAll();
     }
 }
