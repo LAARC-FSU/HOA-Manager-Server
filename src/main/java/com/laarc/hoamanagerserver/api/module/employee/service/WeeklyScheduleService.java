@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WeeklyScheduleService {
@@ -20,11 +21,19 @@ public class WeeklyScheduleService {
     }
 
     public WeeklySchedule saveWeeklySchedule(WeeklyScheduleDTO weeklyScheduleDTO) {
-        WeeklySchedule weeklySchedule = modelMapper.map(weeklyScheduleDTO,WeeklySchedule.class);
+        WeeklySchedule weeklySchedule = modelMapper.map(weeklyScheduleDTO, WeeklySchedule.class);
+        return weeklyScheduleRepository.save(weeklySchedule);
+    }
+    public WeeklySchedule saveWeeklySchedule(WeeklySchedule weeklySchedule) {
         return weeklyScheduleRepository.save(weeklySchedule);
     }
 
-    public List<WeeklySchedule> getWeeklySchedule(){
+    public List<WeeklySchedule> getWeeklySchedule() {
         return weeklyScheduleRepository.findAll();
+    }
+
+    public Optional<WeeklySchedule> updatePosted(Long id) {
+        Optional<WeeklySchedule> optionalWeeklySchedule = weeklyScheduleRepository.findById(id);
+        return optionalWeeklySchedule;
     }
 }

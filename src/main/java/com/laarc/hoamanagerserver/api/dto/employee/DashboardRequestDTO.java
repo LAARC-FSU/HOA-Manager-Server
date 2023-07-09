@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DashboardRequestDTO {
+
+    private Long id;
     private boolean posted;
     private String timeFrameStr;
 }

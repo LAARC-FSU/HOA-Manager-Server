@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/schedule")
@@ -64,6 +65,7 @@ public class WeeklyScheduleController {
         List<DashboardRequestDTO> dashboardRequestDTOList = new ArrayList<>();
         for (WeeklySchedule weeklySchedule : weeklySchedules) {
             DashboardRequestDTO dashboardRequestDTO = new DashboardRequestDTO();
+            dashboardRequestDTO.setId(weeklySchedule.getWeeklyScheduleId());
             dashboardRequestDTO.setPosted(weeklySchedule.isPosted());
             dashboardRequestDTO.setTimeFrameStr(weeklySchedule.getTimeFrame());
             dashboardRequestDTOList.add(dashboardRequestDTO);
@@ -71,6 +73,26 @@ public class WeeklyScheduleController {
         DashboardReqestAllDTO dashboardReqestAllDTO = new DashboardReqestAllDTO();
         dashboardReqestAllDTO.setScheduleTimeFrames(dashboardRequestDTOList);
         return dashboardReqestAllDTO;
+    }
+
+    @PreAuthorize(AccessControl.ADMINISTRATION)
+    @PutMapping("/update/{id}/{id2}")
+    public void UpdatePosted(@PathVariable Long id, @PathVariable Long id2) {
+
+        Optional<WeeklySchedule> weeklySchedule = weeklyScheduleService.updatePosted(id);
+        if (weeklySchedule.isPresent()) {
+            WeeklySchedule weeklySchedule1 = weeklySchedule.get();
+            weeklySchedule1.setPosted(true);
+            weeklyScheduleService.saveWeeklySchedule(weeklySchedule1);
+        }
+        if (id2 != null) {
+            weeklySchedule = weeklyScheduleService.updatePosted(id2);
+            if (weeklySchedule.isPresent()) {
+                WeeklySchedule weeklySchedule1 = weeklySchedule.get();
+                weeklySchedule1.setPosted(false);
+                weeklyScheduleService.saveWeeklySchedule(weeklySchedule1);
+            }
+        }
     }
 }
 
