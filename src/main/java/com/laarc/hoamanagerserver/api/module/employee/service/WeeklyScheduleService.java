@@ -32,8 +32,10 @@ public class WeeklyScheduleService {
         return weeklyScheduleRepository.findAll();
     }
 
-    public Optional<WeeklySchedule> updatePosted(Long id) {
-        Optional<WeeklySchedule> optionalWeeklySchedule = weeklyScheduleRepository.findById(id);
-        return optionalWeeklySchedule;
+    public Optional<WeeklySchedule> update(Long id) {
+        return weeklyScheduleRepository.findById(id);
     }
+   public void delete(Long id){
+        weeklyScheduleRepository.deleteById(id);
+   }
 }

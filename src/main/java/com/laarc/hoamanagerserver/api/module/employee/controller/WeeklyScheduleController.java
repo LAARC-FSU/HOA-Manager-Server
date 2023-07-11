@@ -79,20 +79,26 @@ public class WeeklyScheduleController {
     @PutMapping("/update/{id}/{id2}")
     public void UpdatePosted(@PathVariable Long id, @PathVariable Long id2) {
 
-        Optional<WeeklySchedule> weeklySchedule = weeklyScheduleService.updatePosted(id);
+        Optional<WeeklySchedule> weeklySchedule = weeklyScheduleService.update(id);
         if (weeklySchedule.isPresent()) {
             WeeklySchedule weeklySchedule1 = weeklySchedule.get();
             weeklySchedule1.setPosted(true);
             weeklyScheduleService.saveWeeklySchedule(weeklySchedule1);
         }
         if (id2 != null) {
-            weeklySchedule = weeklyScheduleService.updatePosted(id2);
+            weeklySchedule = weeklyScheduleService.update(id2);
             if (weeklySchedule.isPresent()) {
                 WeeklySchedule weeklySchedule1 = weeklySchedule.get();
                 weeklySchedule1.setPosted(false);
                 weeklyScheduleService.saveWeeklySchedule(weeklySchedule1);
             }
         }
+    }
+
+    @PreAuthorize(AccessControl.ADMINISTRATION)
+    @DeleteMapping("/delete/{id}")
+    public void DeleteSchedule(@PathVariable Long id){
+       weeklyScheduleService.delete(id);
     }
 }
 
