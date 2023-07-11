@@ -4,6 +4,8 @@ import com.laarc.hoamanagerserver.api.module.employee.repository.TimeFrameReposi
 import com.laarc.hoamanagerserver.shared.model.TimeFrame;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TimeFrameService {
     private final TimeFrameRepository timeFrameRepository;
@@ -14,4 +16,6 @@ public class TimeFrameService {
     public TimeFrame saveTime(TimeFrame timeFrame) {
         return timeFrameRepository.save(timeFrame);
     }
+
+    public List<TimeFrame> getTimeFrames(Long weeklyScheduleId){return timeFrameRepository.findByWeeklyScheduleId(weeklyScheduleId);}
 }

@@ -38,4 +38,5 @@ public class WeeklyScheduleService {
    public void delete(Long id){
         weeklyScheduleRepository.deleteById(id);
    }
+
 }

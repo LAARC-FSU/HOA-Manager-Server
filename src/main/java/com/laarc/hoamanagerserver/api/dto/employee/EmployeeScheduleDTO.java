@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeScheduleDTO {
+
     private Long scheduleId;
-    private Long empId;
     private String empName;
     private String empSun;
     private String empMon;

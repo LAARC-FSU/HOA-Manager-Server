@@ -7,6 +7,8 @@ import com.laarc.hoamanagerserver.shared.model.ShiftTime;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ShiftTimeService {
 
@@ -22,5 +24,8 @@ public class ShiftTimeService {
     public ShiftTime saveShiftTime(ShiftTimeDTO shiftTimeDTO) {
         ShiftTime shiftTime = modelMapper.map(shiftTimeDTO, ShiftTime.class);
         return shiftTimeRepository.save(shiftTime);
+    }
+    public Optional<ShiftTime> getShiftTime(Long id){
+        return  shiftTimeRepository.findById(id);
     }
 }

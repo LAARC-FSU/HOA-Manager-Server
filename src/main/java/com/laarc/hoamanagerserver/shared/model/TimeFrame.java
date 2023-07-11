@@ -15,6 +15,6 @@ public class TimeFrame {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long timeFrameId;
-    private Long Id;
+    private Long weeklyScheduleId;
     private String time;
 }
