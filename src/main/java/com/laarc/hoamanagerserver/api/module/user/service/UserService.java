@@ -2,7 +2,6 @@ package com.laarc.hoamanagerserver.api.module.user.service;
 
 import com.laarc.hoamanagerserver.api.crud.BaseCrudService;
 import com.laarc.hoamanagerserver.api.dto.user.PostUser;
-import com.laarc.hoamanagerserver.api.dto.user.RegisterMemberUser;
 import com.laarc.hoamanagerserver.api.dto.user.UserResponse;
 import com.laarc.hoamanagerserver.api.module.user.repository.UserRepository;
 import com.laarc.hoamanagerserver.api.module.user.repository.UserRoleRepository;
@@ -18,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -64,7 +64,9 @@ public class UserService implements BaseCrudService<User, Long> {
         return userRepository.findById(userId)
                 .orElseThrow(UserNotFoundException::new);
     }
-
+    public Optional<User> getByEmail(String email){
+        return userRepository.findUserByEmail(email);
+    }
     @Override
     public List<User> getAll() {
         return userRepository.findAll();
