@@ -12,12 +12,13 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WeeklyScheduleDTO {
-
-    private  Long weeklyScheduleId;
-    private ArrayList<String> timeFrame;
+public class WeeklyScheduleResponseDTO {
     private String timeFrameStr;
-    private ShiftDTO shift;
+    private ArrayList<String> timeFrame;
+
+    private ShiftTimeResponseDTO firstShiftTime;
+
+    private ShiftTimeResponseDTO secondShiftTime;
+    private ShiftTimeResponseDTO thirdShiftTime;
     private List<EmployeeScheduleDTO> schedules;
-    private boolean posted;
 }

@@ -80,40 +80,29 @@ public class WeeklyScheduleController {
 
     @PreAuthorize(AccessControl.ADMINISTRATION)
     @GetMapping("/current-schedule/{id}")
-    public WeeklyScheduleDTO GetCurrentSchedule(@PathVariable Long id){
-        WeeklyScheduleDTO weeklyScheduleDTO = new WeeklyScheduleDTO();
+    public WeeklyScheduleResponseDTO GetCurrentSchedule(@PathVariable Long id){
+        WeeklyScheduleResponseDTO weeklyScheduleResponseDTO = new WeeklyScheduleResponseDTO();
         Optional<WeeklySchedule> weeklySchedule = weeklyScheduleService.update(id);
-        weeklyScheduleDTO.setWeeklyScheduleId(id);
         List<TimeFrame> timeFrames = timeFrameService.getTimeFrames(id);
         ArrayList<String> timeFrameDto = new ArrayList<>();
         for(TimeFrame time : timeFrames){
-            timeFrameDto.add(time.toString());
+            timeFrameDto.add(time.getTime());
         }
-        weeklyScheduleDTO.setTimeFrame(timeFrameDto);
-        weeklyScheduleDTO.setTimeFrameStr(weeklySchedule.get().getTimeFrame());
+        weeklyScheduleResponseDTO.setTimeFrame(timeFrameDto);
+        weeklyScheduleResponseDTO.setTimeFrameStr(weeklySchedule.get().getTimeFrame());
         Shift shift = weeklySchedule.get().getShiftId();
         Optional<ShiftTime> firstShift = shiftTimeService.getShiftTime(shift.getFirstShift());
         Optional<ShiftTime> secondShift = shiftTimeService.getShiftTime(shift.getSecondShift());
         Optional<ShiftTime> thirdShift = shiftTimeService.getShiftTime(shift.getThirdShift());
-        List<Optional<ShiftTime>> shiftTimes = new ArrayList<>();
-        shiftTimes.add(firstShift);
-        shiftTimes.add(secondShift);
-        shiftTimes.add(thirdShift);
-        List<ShiftTimeDTO> shiftTimeDTOS = new ArrayList<>();
-        for(Optional<ShiftTime> shiftTime : shiftTimes){
-            ShiftTimeDTO shiftTimeDTO = new ShiftTimeDTO();
-            shiftTimeDTO.setShiftTimeId(shiftTime.get().getTimeId());
-            shiftTimeDTO.setStart(shiftTime.get().getStart());
-            shiftTimeDTO.setEnd(shiftTime.get().getEnd());
-            shiftTimeDTO.setEnabled(shiftTime.get().isEnabled());
-            shiftTimeDTOS.add(shiftTimeDTO);
-        }
-        ShiftDTO shiftDTO = new ShiftDTO();
-        shiftDTO.setShiftId(shift.getShiftId());
-        shiftDTO.setFirstShiftTime(shiftTimeDTOS.get(0));
-        shiftDTO.setSecondShiftTime(shiftTimeDTOS.get(1));
-        shiftDTO.setThirdShiftTime(shiftTimeDTOS.get(2));
-        weeklyScheduleDTO.setShift(shiftDTO);
+        ShiftTimeResponseDTO shiftTimeResponseDTO1 = modelMapper.map(firstShift, ShiftTimeResponseDTO.class);
+        shiftTimeResponseDTO1.setId("first shift");
+        ShiftTimeResponseDTO shiftTimeResponseDTO2 = modelMapper.map(secondShift, ShiftTimeResponseDTO.class);
+        shiftTimeResponseDTO2.setId("second shift");
+        ShiftTimeResponseDTO shiftTimeResponseDTO3 = modelMapper.map(thirdShift, ShiftTimeResponseDTO.class);
+        shiftTimeResponseDTO3.setId("third shift");
+        weeklyScheduleResponseDTO.setFirstShiftTime(shiftTimeResponseDTO1);
+        weeklyScheduleResponseDTO.setSecondShiftTime(shiftTimeResponseDTO2);
+        weeklyScheduleResponseDTO.setThirdShiftTime(shiftTimeResponseDTO3);
 
         List<EmployeeSchedule>  employeeSchedules = employeeScheduleService.getEmpSchedule(id);
         List<EmployeeScheduleDTO> employeeScheduleDTOS = new ArrayList<>();
@@ -121,9 +110,9 @@ public class WeeklyScheduleController {
             EmployeeScheduleDTO employeeScheduleDTO = modelMapper.map(employeeSchedule, EmployeeScheduleDTO.class);
             employeeScheduleDTOS.add(employeeScheduleDTO);
         }
-        weeklyScheduleDTO.setSchedules(employeeScheduleDTOS);
+        weeklyScheduleResponseDTO.setSchedules(employeeScheduleDTOS);
 
-        return weeklyScheduleDTO;
+        return weeklyScheduleResponseDTO;
     }
 
     @PreAuthorize(AccessControl.ADMINISTRATION)
