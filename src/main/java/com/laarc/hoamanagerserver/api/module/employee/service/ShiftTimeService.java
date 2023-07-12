@@ -13,7 +13,6 @@ import java.util.Optional;
 public class ShiftTimeService {
 
     private final ShiftTimeRepository shiftTimeRepository;
-
     private final ModelMapper modelMapper;
 
     public ShiftTimeService(ShiftTimeRepository shiftTimeRepository, ModelMapper modelMapper) {
@@ -22,8 +21,7 @@ public class ShiftTimeService {
     }
 
     public ShiftTime saveShiftTime(ShiftTimeDTO shiftTimeDTO) {
-        ShiftTime shiftTime = modelMapper.map(shiftTimeDTO, ShiftTime.class);
-        return shiftTimeRepository.save(shiftTime);
+        return shiftTimeRepository.save(modelMapper.map(shiftTimeDTO, ShiftTime.class));
     }
     public Optional<ShiftTime> getShiftTime(Long id){
         return  shiftTimeRepository.findById(id);

@@ -30,13 +30,13 @@ public class Address {
     @Nullable
     private String addressLine2;
 
-    @NotNull
+    @Nullable
     private String city;
 
-    @NotNull
+    @Nullable
     private String state;
 
-    @NotNull
+    @Nullable
     private String zipCode;
 
 }

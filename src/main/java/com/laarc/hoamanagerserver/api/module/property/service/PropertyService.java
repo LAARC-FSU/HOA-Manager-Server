@@ -25,21 +25,11 @@ public class PropertyService {
 
     @Transactional
     public Property createProperty(PostProperty postProperty) {
+        Property property = mapper.map(postProperty, Property.class);
+        return property;
+    }
 
-        DeedDocument deedDocument = new DeedDocument();
-        deedDocument.setFileName(postProperty.getDeedFileName());
-        deedDocument.setUploader(null);
-        deedDocument.setUploaded(LocalDateTime.now());
-        deedDocument.setLastUpdated(LocalDateTime.now());
-
-        deedDocumentRepository.save(deedDocument);
-
-        Address address = addressRepository.save(mapper.map(postProperty.getPropertyAddress(), Address.class));
-
-        Property property = new Property();
-        property.setAddress(address);
-        property.setDeedDocument(deedDocument);
-
+    public Property saveProperty(Property property){
         return propertyRepository.save(property);
     }
 

@@ -21,7 +21,19 @@ public class Property {
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
-    @OneToOne
-    @JoinColumn(name = "deed_document_id", nullable = false)
-    private DeedDocument deedDocument;
+//    @OneToOne
+//    @JoinColumn(name = "deed_document_id", nullable = false)
+//    private DeedDocument deedDocument;
+
+    private String lotArea;
+    private String lotFrontage;
+    private String lotDepth;
+    private String subdivision;
+    private Integer block;
+    private String zoning;
+    private String zoningMap;
+    private Integer numberOfBuildings;
+    private Integer numberOfFloors;
+    private Integer unit;
+    private String lot;
 }

@@ -33,16 +33,14 @@ public class WeeklyScheduleController {
         List<EmployeeScheduleDTO> employeeScheduleDTO = weeklyScheduleDTO.getSchedules();
 
         ShiftDTO shiftDTO = weeklyScheduleDTO.getShift();
+
         Shift shift = new Shift();
         shift = shiftService.saveShift(shift);
-        ShiftTimeDTO shiftTimeDTO = shiftDTO.getFirstShiftTime();
-        ShiftTime shiftTime = shiftTimeService.saveShiftTime(shiftTimeDTO);
+        ShiftTime shiftTime = shiftTimeService.saveShiftTime(shiftDTO.getFirstShiftTime());
         shift.setFirstShift(shiftTime.getTimeId());
-        shiftTimeDTO = shiftDTO.getSecondShiftTime();
-        shiftTime = shiftTimeService.saveShiftTime(shiftTimeDTO);
+        shiftTime = shiftTimeService.saveShiftTime(shiftDTO.getSecondShiftTime());
         shift.setSecondShift(shiftTime.getTimeId());
-        shiftTimeDTO = shiftDTO.getThirdShiftTime();
-        shiftTime = shiftTimeService.saveShiftTime(shiftTimeDTO);
+        shiftTime = shiftTimeService.saveShiftTime(shiftDTO.getThirdShiftTime());
         shift.setThirdShift(shiftTime.getTimeId());
 
         WeeklySchedule weeklySchedule = weeklyScheduleService.saveWeeklySchedule(weeklyScheduleDTO);
