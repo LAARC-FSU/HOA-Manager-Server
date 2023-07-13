@@ -5,6 +5,8 @@ import com.laarc.hoamanagerserver.api.dto.LoginRequest;
 import com.laarc.hoamanagerserver.api.module.membership.service.MemberService;
 import com.laarc.hoamanagerserver.api.module.security.utility.JwtUtil;
 import com.laarc.hoamanagerserver.api.module.user.service.UserService;
+import com.laarc.hoamanagerserver.exception.UserNotFoundException;
+import com.laarc.hoamanagerserver.exception.http.NotFoundException;
 import com.laarc.hoamanagerserver.exception.http.UnauthorizedException;
 import com.laarc.hoamanagerserver.shared.model.Member;
 import com.laarc.hoamanagerserver.shared.model.Person;
@@ -13,8 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,9 +27,11 @@ public class AuthorizationService {
     private final MemberService memberService;
 
     public JwtResponse getJwtByLoginRequest(LoginRequest loginRequest) {
-        Optional<User> user1 = userService.getByEmail(loginRequest.getUsername());
-        Optional<Member> member = memberService.getMember(user1.get().getUserId());
-        Person person = member.get().getPerson();
+        User user1 = userService.getByEmail(loginRequest.getUsername())
+                .orElseThrow(UserNotFoundException::new);
+        Member member = memberService.getMember(user1.getUserId())
+                .orElseThrow(() -> new NotFoundException("Member does not exist."));
+        Person person = member.getPerson();
         String name = person.getFirstName();
 
         authenticateLogin(loginRequest);

@@ -27,6 +27,11 @@ public class UserService implements BaseCrudService<User, Long> {
     private final UserRoleRepository userRoleRepository;
     private final PasswordEncoder passwordEncoder;
 
+    public User findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email)
+                .orElseThrow(UserNotFoundException::new);
+    }
+
     public boolean existByEmail(String email) {
         return userRepository.existsByEmail(email);
     }
