@@ -12,9 +12,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PostProperty {
 
-    private Long propertyId;
+    //private Long propertyId;
     private AddressDTO propertyAddress;
-    private Integer deedDocumentId;
-    private String deedFileName;
+    //private Integer deedDocumentId;
+    //private String deedFileName;
+    private String lotArea;
+    private String lotFrontage;
+    private String lotDepth;
+    private String subdivision;
+    private String block;
+    private String zoning;
+    private String zoningMap;
+    private String numberOfBuildings;
+    private String numberOfFloors;
+    private String unit;
+    private String lot;
 
 }

@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -68,7 +69,9 @@ public class UserService implements BaseCrudService<User, Long> {
         return userRepository.findById(userId)
                 .orElseThrow(UserNotFoundException::new);
     }
-
+    public Optional<User> getByEmail(String email){
+        return userRepository.findUserByEmail(email);
+    }
     @Override
     public List<User> getAll() {
         return userRepository.findAll();

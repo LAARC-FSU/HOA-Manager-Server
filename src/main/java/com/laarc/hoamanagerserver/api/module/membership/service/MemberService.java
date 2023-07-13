@@ -17,6 +17,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -53,6 +55,10 @@ public class MemberService {
 
         return user;
 
+    }
+
+    public Optional<Member> getMember(Long id){
+        return  memberRepository.findById(id);
     }
 
 }

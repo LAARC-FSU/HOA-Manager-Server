@@ -1,4 +1,4 @@
-package com.laarc.hoamanagerserver.api.dto;
+package com.laarc.hoamanagerserver.api.dto.employee;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class JwtResponse {
-
-    private String token;
-    private String name;
-
+public class ShiftTimeResponseDTO {
+    private String id;
+    private String start;
+    private String end;
 }
