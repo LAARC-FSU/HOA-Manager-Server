@@ -20,12 +20,12 @@ public class PostProperty {
     private String lotFrontage;
     private String lotDepth;
     private String subdivision;
-    private Integer block;
+    private String block;
     private String zoning;
     private String zoningMap;
-    private Integer numberOfBuildings;
-    private Integer numberOfFloors;
-    private Integer unit;
+    private String numberOfBuildings;
+    private String numberOfFloors;
+    private String unit;
     private String lot;
 
 }
