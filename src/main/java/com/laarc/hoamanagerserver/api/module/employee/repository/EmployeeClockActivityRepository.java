@@ -10,4 +10,5 @@ public interface EmployeeClockActivityRepository extends JpaRepository<EmployeeC
 
     List<EmployeeClockActivity> findEmployeeClockActivitiesByEmployeeUserUserIdAndTimeAfterAndTimeBefore(Long employeeUser_userId, LocalDateTime timeAfter, LocalDateTime timeBefore);
 
+    EmployeeClockActivity findTopByEmployeeUserUserIdOrderByTimeDesc(Long employeeUser_userId);
 }
